@@ -48,12 +48,13 @@ $('form').submit((event) => {
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then(() => {
-            // set to h1
-            $('.main-page h1').text(`Welcome ${email}`)
-            // hide login page
-            $('.login-page').addClass('hidden')
-            //show main-page
-            $('.main-page').removeClass('hidden')
+            // // hide login page
+            // $('.login-page').addClass('hidden')
+            // //show main-page
+            // $('.main-page').removeClass('hidden')
+            // $('input[type="email"]').val()
+            // var$('input[type="password"]').val()
+            $('form')[0].reset()
         })
 })
 
