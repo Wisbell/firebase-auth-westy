@@ -12,6 +12,24 @@ console.log("main.js loaded")
 
 
 
+
+// Check Auth state event listener
+firebase.auth().onAuthStateChanged(() => {
+    if (firebase.auth().currentUser !== null) {
+
+        var email = firebase.auth().currentUser.email
+        // logged in
+        $('.login-page').addClass('hidden')
+        $('.main-page').removeClass('hidden')
+        $('.main-page h1').text(`Welcome ${email}`)
+    } else {
+        // logged out
+        $('.login-page').removeClass('hidden')
+        $('.main-page').addClass('hidden')
+    }
+})
+
+
 // Event listener - submit listener works with click and enter
 
 // $('form').submit(function(){
@@ -42,4 +60,26 @@ $('form').submit((event) => {
 
 // register button
 
-$('')
+$('button .register').click(() => {
+    console.log("Register button clicked")
+
+    var email = $('input[type="email"]').val()
+    var password = $('input[type="password"]').val()
+
+    if(firebase.auth().currentUser === null){
+        firebase
+        .createUserWithEmailAndPassword(email, password)
+        .then(() => {
+            // set to h1
+            $('.main-page h1').text(`Welcome ${email}`)
+            // hide login page
+            $('.login-page').addClass('hidden')
+            //show main-page
+            $('.main-page').removeClass('hidden')
+        })
+    }
+    else {
+        console.log("Please log out before creating a new user")
+    }
+
+})
