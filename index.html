@@ -7,21 +7,20 @@
   <link rel="stylesheet" type="text/css" href="/main.css">
 </head>
 <body>
-  <nav></nav>
 
-  <div class="container">
+  <nav class="navbar navbar-default">
+      <a href="#" class="navbar-brand">Me Firebase Page</a>
+      <div class="nav navbar-nav navbar-right">
+        <button class="logout btn btn-info">Logout</button>
+      </div>
 
-    <h1>Me Firebase Page</h1>
+  </nav>
 
-
-    <!--     input email
-    input password
-    submit button -->
-
+  <div class="container-fluid">
 
     <div class="login-page hidden">
       <h1>Login</h1>
-      <form>
+      <form class=".login-page-form">
         <div class="form-group">
           <p>Enter your email</p>
           <input type="email" class="form-control" name="email" placeholder="Email">
@@ -36,6 +35,15 @@
 
     <div class="main-page hidden">
       <h1>Welcome ________</h1>
+
+      <!-- user todo list form -->
+      <form>
+        <input type="text" name="todo" placeholder="Todo">
+        <input type="submit" value="Add Todo" name="">
+      </form>
+      <ul class="todolist">
+
+      </ul>
     </div>
 
   </div> <!-- close container -->

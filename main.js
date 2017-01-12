@@ -22,10 +22,12 @@ firebase.auth().onAuthStateChanged(() => {
         $('.login-page').addClass('hidden')
         $('.main-page').removeClass('hidden')
         $('.main-page h1').text(`Welcome ${email}`)
+        $('.logout').removeClass('hidden')
     } else {
         // logged out
         $('.login-page').removeClass('hidden')
         $('.main-page').addClass('hidden')
+        $('.logout').addClass('hidden')
     }
 })
 
@@ -37,7 +39,8 @@ firebase.auth().onAuthStateChanged(() => {
 // })
 
 // Submit button - LOG-IN evenT listener
-$('form').submit((event) => {
+// was $('form')
+$('.login-page-form').submit((event) => {
 
     event.preventDefault()
 
@@ -61,7 +64,7 @@ $('form').submit((event) => {
 
 // register button
 
-$('button .register').click(() => {
+$('.register').click(() => {
     console.log("Register button clicked")
 
     var email = $('input[type="email"]').val()
@@ -69,6 +72,7 @@ $('button .register').click(() => {
 
     if(firebase.auth().currentUser === null){
         firebase
+        .auth()
         .createUserWithEmailAndPassword(email, password)
         .then(() => {
             // set to h1
@@ -79,8 +83,30 @@ $('button .register').click(() => {
             $('.main-page').removeClass('hidden')
         })
     }
-    else {
-        console.log("Please log out before creating a new user")
-    }
+
+})
+
+// create log out button that logs you out
+$('.logout').click(() => {
+    console.log("logout button clicked")
+    firebase.auth().signOut()
+})
+
+// Make register button work
+
+// if any errors in log in or register, pop out an alert
+    // remember error is in catch error callback
+
+
+
+$('.main-page form').submit((event) => {
+    event.preventDefault()
+
+    var task = $('.main-page input[type="text"]').val()
+    var uid = firebase.auth().currentUser.uid
+    $.post('https://west-jquery-auth.firebaseio.com/' + uid + '.json',
+        // the first task is always a string - can use 'task'   instead
+        JSON.stringify({task: task})
+    ).then(console.log)
 
 })
